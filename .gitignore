@@ -33,3 +33,6 @@ Thumbs.db
 .vite/
 
 .claude/
+
+# Design identity (generado por /style-audit)
+.design-identity.md
