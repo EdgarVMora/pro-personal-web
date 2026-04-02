@@ -1,14 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-surface: #111111;
-  --color-border: #1f1f1f;
-  --color-text-primary: #f5f5f5;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #555555;
-  --color-accent: #e2e2e2;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
-  --font-family-sans: 'Inter', system-ui, sans-serif;
-  --font-family-mono: 'JetBrains Mono', monospace;
+  --color-background: #040407;
+  --color-surface: #07070f;
+  --color-border: #12122a;
+  --color-foreground: #ebebf5;
+  --color-muted: #5a6a90;
+  --color-dim: #232840;
+  --color-accent: #f0a030;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #040407;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(240, 160, 48, 0.22);
+    color: var(--color-accent);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(240, 160, 48, 0.35);
+  }
+}
+
+@layer utilities {
+  .text-gradient-amber {
+    background-image: linear-gradient(to right, #f0a030, #ffd070, #f0a030);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-amber {
+    box-shadow:
+      0 0 20px rgba(240, 160, 48, 0.28),
+      0 0 60px rgba(240, 160, 48, 0.10);
+  }
+
+  .glow-amber-text {
+    text-shadow: 0 0 24px rgba(240, 160, 48, 0.55);
+  }
+
+  .text-hero {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .text-title {
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
 }
