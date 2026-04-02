@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 // La importación desde gsap.config garantiza que ScrambleTextPlugin está registrado
 import { gsap } from '../../../animations/gsap.config'
-import HeroBackground from './HeroBackground'
 
 const SKILLS = ['React', 'Node.js', 'UI/UX', 'GSAP', 'TypeScript']
 
@@ -68,10 +67,7 @@ function HeroSection({ personal }) {
       ref={sectionRef}
       className="relative min-h-screen flex items-center"
     >
-      {/* Fondo animado — posición absoluta, detrás de todo */}
-      <HeroBackground />
-
-      {/* Contenido — z-index sobre el fondo */}
+      {/* Contenido — z-index sobre el fondo fijo */}
       <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 pt-20">
         <div style={{ maxWidth: '520px' }}>
 
