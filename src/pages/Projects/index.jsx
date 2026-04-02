@@ -1,7 +1,13 @@
+import { projects } from '../../data/index'
+import ProjectCard from '../../components/ui/ProjectCard'
+
 function Projects() {
   return (
     <main>
-      {/* Full projects grid will be added here */}
+      <h1>Proyectos</h1>
+      {projects.map(({ id, ...props }) => (
+        <ProjectCard key={id} {...props} />
+      ))}
     </main>
   )
 }
