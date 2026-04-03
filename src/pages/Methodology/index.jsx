@@ -1,25 +1,24 @@
 import { journey } from '../../data/index'
-import TimelineStep from '../../components/ui/TimelineStep'
+import MethodologyBackground from './sections/MethodologyBackground'
+import IntroSection from './sections/IntroSection'
+import TimelineSection from './sections/TimelineSection'
 
 function Methodology() {
   return (
-    <main>
-      <h1>Metodología de Aprendizaje</h1>
-      <p>[FAKE] Un recorrido por las herramientas y etapas que definieron mi forma de construir software con IA.</p>
-      <section>
-        {journey.map((step, index) => (
-          <TimelineStep
-            key={step.id}
-            period={step.period}
-            tool={step.tool}
-            phase={step.phase}
-            description={step.description}
-            milestone={step.milestone}
-            isLast={index === journey.length - 1}
-          />
-        ))}
-      </section>
-    </main>
+    <>
+      {/* Background fijo — permanece intacto mientras las secciones scrollean */}
+      <div
+        aria-hidden="true"
+        style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}
+      >
+        <MethodologyBackground />
+      </div>
+
+      <main style={{ position: 'relative', zIndex: 1 }}>
+        <IntroSection />
+        <TimelineSection journey={journey} />
+      </main>
+    </>
   )
 }
 
