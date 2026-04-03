@@ -1,4 +1,11 @@
 function TimelineStep({ period, tool, phase, description, milestone, isLast }) {
+  function handleMouseEnter(e) {
+    e.currentTarget.style.boxShadow = '0 0 20px rgba(37,127,245,0.15), 0 0 1px rgba(255,255,255,0.12)'
+  }
+  function handleMouseLeave(e) {
+    e.currentTarget.style.boxShadow = 'none'
+  }
+
   return (
     <div className="relative flex gap-6">
       {/* Línea + dot */}
@@ -23,7 +30,10 @@ function TimelineStep({ period, tool, phase, description, milestone, isLast }) {
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           border: '1px solid rgba(255,255,255,0.08)',
+          transition: 'box-shadow 0.3s ease',
         }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Meta */}
         <div className="flex items-center gap-3 mb-3">
