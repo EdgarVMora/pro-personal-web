@@ -60,58 +60,158 @@ function HeroSection({ personal }) {
       { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' },
       '-=0.3'
     )
+
+    // Loop de la flecha
+    gsap.to('.hero-arrow', {
+      y: 6, duration: 1.3, repeat: -1,
+      yoyo: true, ease: 'sine.inOut', delay: 2.5,
+    })
   }, { scope: sectionRef })
+
+  const [firstName, ...rest] = personal.name.split(' ')
+  const lastName = rest.join(' ')
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center"
+      style={{
+        position: 'relative',
+        height: '100vh',
+        width: '100%',
+        overflow: 'hidden',
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr auto',
+        padding: '2.5rem 3rem',
+        zIndex: 10,
+      }}
     >
-      {/* Contenido — z-index sobre el fondo fijo */}
-      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 pt-20">
-        <div style={{ maxWidth: '520px' }}>
+      {/* FILA 0 — esquinas superiores */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-          {/* Label badge con línea decorativa */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-px w-8 bg-accent" />
-            <span className="font-mono text-xs uppercase tracking-widest text-accent">
-              Desarrollador de software
+        {/* Esquina sup-izq — label badge */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ height: '2px', width: '32px', background: 'var(--color-accent)' }} />
+          <span
+            style={{
+              fontFamily: 'var(--font-family-mono)',
+              fontSize: '0.68rem',
+              color: 'rgba(255,255,255,0.85)',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Desarrollador de software
+          </span>
+        </div>
+
+        {/* Esquina sup-der — tagline */}
+        <p
+          ref={taglineRef}
+          style={{
+            fontFamily: 'var(--font-family-mono)',
+            fontSize: '0.68rem',
+            color: 'rgba(255,255,255,0.5)',
+            letterSpacing: '0.1em',
+            textAlign: 'right',
+            maxWidth: '220px',
+            lineHeight: 1.6,
+            opacity: 0,
+          }}
+        >
+          {personal.tagline}
+        </p>
+      </div>
+
+      {/* FILA 1 — título central */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <h1
+          ref={nameRef}
+          className="hero-name"
+          style={{
+            fontFamily: 'var(--font-family-display)',
+            fontSize: 'clamp(5rem, 13vw, 15rem)',
+            fontWeight: 400,
+            color: 'rgba(235, 235, 245, 0.82)',
+            letterSpacing: '-0.02em',
+            lineHeight: 0.92,
+            textAlign: 'center',
+            userSelect: 'none',
+            margin: 0,
+          }}
+        >
+          <span style={{ display: 'block' }}>{'\u00A0'}</span>
+          <span style={{ display: 'block' }}>{'\u00A0'}</span>
+        </h1>
+      </div>
+
+      {/* FILA 2 — esquinas inferiores + flecha */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative' }}>
+
+        {/* Esquina inf-izq — bio */}
+        <p
+          ref={bioRef}
+          style={{
+            fontFamily: 'var(--font-family-sans)',
+            fontSize: '0.78rem',
+            color: 'rgba(255,255,255,0.5)',
+            lineHeight: 1.7,
+            maxWidth: '260px',
+            opacity: 0,
+          }}
+        >
+          {personal.bio}
+        </p>
+
+        {/* Flecha central */}
+        <div
+          className="hero-arrow"
+          style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}
+        >
+          <button
+            onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+            style={{
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              border: '1px solid rgba(255,255,255,0.2)',
+              background: 'transparent',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-family-mono)',
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.5)',
+              }}
+            >
+              ↓
             </span>
-          </div>
+          </button>
+        </div>
 
-          {/* Nombre — target de ScrambleText, empieza vacío */}
-          <h1
-            ref={nameRef}
-            className="font-display text-hero text-foreground mb-4"
+        {/* Esquina inf-der — badges + CTAs */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1rem' }}>
+
+          {/* Badges */}
+          <div
+            ref={badgesRef}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', justifyContent: 'flex-end' }}
           >
-            {'\u00A0'}
-          </h1>
-
-          {/* Tagline — empieza invisible, entra con fromTo */}
-          <p
-            ref={taglineRef}
-            className="font-display text-title text-gradient-amber mb-5"
-            style={{ opacity: 0 }}
-          >
-            {personal.tagline}
-          </p>
-
-          {/* Bio */}
-          <p
-            ref={bioRef}
-            className="font-sans text-lg leading-relaxed text-muted mb-8"
-            style={{ opacity: 0 }}
-          >
-            {personal.bio}
-          </p>
-
-          {/* Badges de habilidades — cada hijo animado con stagger */}
-          <div ref={badgesRef} className="flex flex-wrap gap-2 mb-8">
             {SKILLS.map((skill) => (
               <span
                 key={skill}
-                className="font-mono text-xs bg-surface border border-border text-muted px-3 py-1.5"
-                style={{ opacity: 0 }}
+                style={{
+                  fontFamily: 'var(--font-family-mono)',
+                  fontSize: '0.62rem',
+                  color: 'rgba(255,255,255,0.4)',
+                  padding: '0.2rem 0.5rem',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  opacity: 0,
+                }}
               >
                 {skill}
               </span>
@@ -119,35 +219,38 @@ function HeroSection({ personal }) {
           </div>
 
           {/* CTAs */}
-          <div ref={ctaRef} className="flex gap-4 flex-wrap">
+          <div ref={ctaRef} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
             <Link
               to="/projects"
-              className="font-mono text-xs uppercase tracking-widest bg-accent text-background px-5 py-3 transition-all duration-200 hover:opacity-90 hover:glow-amber"
-              style={{ opacity: 0 }}
+              style={{
+                fontFamily: 'var(--font-family-mono)',
+                fontSize: '0.7rem',
+                color: 'rgba(255,255,255,0.85)',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                opacity: 0,
+              }}
             >
-              Ver Proyectos
+              Ver proyectos →
             </Link>
             <a
               href="#about"
-              className="font-mono text-xs uppercase tracking-widest border border-border text-muted px-5 py-3 transition-colors duration-200 hover:text-foreground hover:border-dim"
-              style={{ opacity: 0 }}
+              style={{
+                fontFamily: 'var(--font-family-mono)',
+                fontSize: '0.7rem',
+                color: 'rgba(255,255,255,0.35)',
+                letterSpacing: '0.08em',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                opacity: 0,
+              }}
             >
-              Sobre mí
+              Sobre mí →
             </a>
           </div>
 
         </div>
-      </div>
-
-      {/* Indicador de scroll — esquina inferior izquierda */}
-      <div className="absolute bottom-8 left-6 md:left-16 flex flex-col items-center gap-2">
-        <div className="h-12 w-px bg-muted" />
-        <span
-          className="font-mono text-xs text-muted tracking-widest uppercase"
-          style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}
-        >
-          scroll
-        </span>
       </div>
     </section>
   )

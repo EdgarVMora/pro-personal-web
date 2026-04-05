@@ -90,4 +90,10 @@
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
+
+  /* ScrambleText inyecta spans con .text-dim en los caracteres revelados.
+     Forzamos inherit para que el h1 del hero mantenga su color. */
+  .hero-name .text-dim {
+    color: inherit;
+  }
 }
