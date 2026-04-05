@@ -27,7 +27,7 @@ function AboutSection({ personal, skills }) {
       ref={sectionRef}
       className="relative min-h-screen flex items-center px-6 md:px-16 lg:px-24 py-24"
     >
-      <div style={{ maxWidth: '640px' }} className="w-full">
+      <div style={{ maxWidth: '640px' }} className="w-full mr-auto">
 
         {/* Label badge */}
         <div className="about-anim flex items-center gap-3 mb-6">
