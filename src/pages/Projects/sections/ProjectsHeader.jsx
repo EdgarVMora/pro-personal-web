@@ -7,12 +7,27 @@ function ProjectsHeader() {
   const titleRef = useRef(null)
 
   useGSAP(() => {
-    // 1. Líneas del título
-    gsap.fromTo(
-      titleRef.current.querySelectorAll('span'),
-      { y: 80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.4, stagger: 0.18, ease: 'power4.out' }
-    )
+    // 1. ScrambleText en cada línea del título con stagger
+    const spans = titleRef.current.querySelectorAll('span')
+    const tl = gsap.timeline()
+    tl.to(spans[0], {
+      duration: 1.4,
+      scrambleText: {
+        text: 'LO QUE',
+        chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        revealDelay: 0.3,
+        speed: 0.4,
+      },
+    })
+    tl.to(spans[1], {
+      duration: 1.6,
+      scrambleText: {
+        text: 'CONSTRUYO',
+        chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        revealDelay: 0.3,
+        speed: 0.4,
+      },
+    }, '-=0.8')
 
     // 2. Esquinas y flecha
     gsap.fromTo(
@@ -90,8 +105,8 @@ function ProjectsHeader() {
             margin: 0,
           }}
         >
-          <span style={{ display: 'block', opacity: 0.92 }}>LO QUE</span>
-          <span style={{ display: 'block', paddingLeft: '0.08em' }}>CONSTRUYO</span>
+          <span style={{ display: 'block' }}>{'\u00A0'}</span>
+          <span style={{ display: 'block', paddingLeft: '0.08em' }}>{'\u00A0'}</span>
         </h1>
       </div>
 
