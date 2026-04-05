@@ -28,10 +28,10 @@ function ProjectsSection({ projects }) {
       ref={sectionRef}
       className="relative min-h-screen flex items-center px-6 md:px-16 lg:px-24 py-24"
     >
-      <div style={{ maxWidth: '680px' }} className="w-full">
+      <div style={{ maxWidth: '680px' }} className="ml-auto">
 
-        {/* Label badge */}
-        <div className="proj-anim flex items-center gap-3 mb-6">
+        {/* Label badge — espejado a la derecha */}
+        <div className="proj-anim flex items-center flex-row-reverse gap-3 mb-6">
           <div className="h-px w-8 bg-accent" />
           <span className="font-mono text-xs uppercase tracking-widest text-accent">
             Proyectos
@@ -39,7 +39,7 @@ function ProjectsSection({ projects }) {
         </div>
 
         {/* Heading */}
-        <h2 className="proj-anim font-display text-title text-foreground mb-10">
+        <h2 className="proj-anim font-display text-title text-foreground mb-10 text-right">
           Lo que he construido
         </h2>
 
@@ -51,7 +51,7 @@ function ProjectsSection({ projects }) {
         </div>
 
         {/* CTA */}
-        <div className="proj-anim">
+        <div className="proj-anim flex justify-end">
           <Link
             to="/projects"
             className="font-mono text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors duration-200"

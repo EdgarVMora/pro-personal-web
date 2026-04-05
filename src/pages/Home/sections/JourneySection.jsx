@@ -28,7 +28,7 @@ function JourneySection({ journey }) {
       ref={sectionRef}
       className="relative min-h-screen flex items-center px-6 md:px-16 lg:px-24 py-24"
     >
-      <div style={{ maxWidth: '600px' }} className="w-full">
+      <div style={{ maxWidth: '600px' }} className="w-full mr-auto">
 
         {/* Label badge */}
         <div className="journey-anim flex items-center gap-3 mb-6">
