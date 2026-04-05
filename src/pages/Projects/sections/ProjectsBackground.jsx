@@ -1,37 +1,7 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../../../animations/gsap.config'
-
-function LatitudeLines({ size }) {
-  const r = size / 2
-  const lines = [
-    { cy: r * 0.22, rx: r * 0.50, ry: r * 0.08 },
-    { cy: r * 0.42, rx: r * 0.80, ry: r * 0.12 },
-    { cy: r,        rx: r * 0.95, ry: r * 0.15 },
-    { cy: r * 1.58, rx: r * 0.80, ry: r * 0.12 },
-    { cy: r * 1.78, rx: r * 0.50, ry: r * 0.08 },
-  ]
-
-  return (
-    <svg
-      viewBox={`0 0 ${size} ${size}`}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-    >
-      {lines.map((line, i) => (
-        <ellipse
-          key={i}
-          cx={r}
-          cy={line.cy}
-          rx={line.rx}
-          ry={line.ry}
-          fill="none"
-          stroke="rgba(200,160,255,0.18)"
-          strokeWidth="1"
-        />
-      ))}
-    </svg>
-  )
-}
+import AlienSphere from '../../../components/ui/AlienSphere'
 
 function ProjectsBackground() {
   const containerRef = useRef(null)
@@ -48,11 +18,6 @@ function ProjectsBackground() {
       { scale: 0.85, opacity: 0 },
       { scale: 1, opacity: 1, duration: 2.5, stagger: 0.3, ease: 'power3.out' }
     )
-
-    // Rotación continua — cada esfera a distinta velocidad
-    gsap.to(sphere1Ref.current, { rotateY: 360, duration: 28, repeat: -1, ease: 'none' })
-    gsap.to(sphere2Ref.current, { rotateY: 360, duration: 18, repeat: -1, ease: 'none' })
-    gsap.to(sphere3Ref.current, { rotateY: 360, duration: 22, repeat: -1, ease: 'none' })
 
     // Blobs nebulosa
     const blobs = containerRef.current.querySelectorAll('.p-blob')
@@ -132,77 +97,23 @@ function ProjectsBackground() {
       </div>
 
       {/* ── Esfera 1 — grande, arriba-derecha ── */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          left: '70%',
-          perspective: '600px',
-        }}
-      >
-        <div
-          ref={sphere1Ref}
-          style={{
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at 38% 32%, rgba(160,80,255,0.9) 0%, rgba(70,20,160,0.95) 50%, rgba(15,5,45,1) 100%)',
-            boxShadow: '0 0 40px rgba(120,50,220,0.35), 0 0 80px rgba(80,20,160,0.18)',
-            overflow: 'hidden',
-            opacity: 0,
-          }}
-        >
-          <LatitudeLines size={240} />
+      <div style={{ position: 'absolute', top: '10%', left: '70%', perspective: '600px' }}>
+        <div ref={sphere1Ref} style={{ opacity: 0 }}>
+          <AlienSphere size={240} rotationSpeed={28} color={0x8b3a28} emissive={0x3a1510} />
         </div>
       </div>
 
       {/* ── Esfera 2 — pequeña, centro-izquierda ── */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '8%',
-          perspective: '400px',
-        }}
-      >
-        <div
-          ref={sphere2Ref}
-          style={{
-            width: '120px',
-            height: '120px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at 35% 35%, rgba(180,100,255,0.85) 0%, rgba(90,30,180,0.92) 50%, rgba(20,8,55,1) 100%)',
-            boxShadow: '0 0 25px rgba(140,60,240,0.3), 0 0 50px rgba(100,30,180,0.15)',
-            overflow: 'hidden',
-            opacity: 0,
-          }}
-        >
-          <LatitudeLines size={120} />
+      <div style={{ position: 'absolute', top: '50%', left: '8%', perspective: '600px' }}>
+        <div ref={sphere2Ref} style={{ opacity: 0 }}>
+          <AlienSphere size={120} rotationSpeed={18} color={0x2d6b3a} emissive={0x0f2a15} />
         </div>
       </div>
 
       {/* ── Esfera 3 — mediana, abajo-derecha ── */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '62%',
-          left: '78%',
-          perspective: '500px',
-        }}
-      >
-        <div
-          ref={sphere3Ref}
-          style={{
-            width: '180px',
-            height: '180px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at 40% 30%, rgba(130,60,220,0.88) 0%, rgba(55,15,130,0.94) 55%, rgba(12,4,38,1) 100%)',
-            boxShadow: '0 0 35px rgba(100,40,200,0.32), 0 0 70px rgba(70,20,150,0.16)',
-            overflow: 'hidden',
-            opacity: 0,
-          }}
-        >
-          <LatitudeLines size={180} />
+      <div style={{ position: 'absolute', top: '62%', left: '78%', perspective: '600px' }}>
+        <div ref={sphere3Ref} style={{ opacity: 0 }}>
+          <AlienSphere size={180} rotationSpeed={22} color={0xa07840} emissive={0x3d2a12} />
         </div>
       </div>
 

@@ -4,41 +4,75 @@ const STATUS_LABELS = {
   archived: 'Archivado',
 }
 
-const STATUS_COLORS = {
-  completed: 'text-accent',
-  'in-progress': 'text-foreground',
-  archived: 'text-dim',
-}
-
-function ProjectCard({ title, description, tags, status, links, builtWith }) {
+function ProjectCard({ title, description, tags, status, links, builtWith, IconComponent }) {
   return (
     <article
-      className="p-6 flex flex-col gap-4 transition-all duration-300"
       style={{
+        width: '420px',
+        flexShrink: 0,
+        flexGrow: 0,
+        padding: '2rem',
+        borderRadius: '2px',
         background: 'rgba(255,255,255,0.04)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         border: '1px solid rgba(255,255,255,0.08)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.25rem',
       }}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="font-display text-xl text-foreground">{title}</h3>
-        <span className={`font-mono text-xs shrink-0 ${STATUS_COLORS[status]}`}>
-          {STATUS_LABELS[status]}
-        </span>
-      </div>
+      {/* Icono */}
+      {IconComponent && (
+        <div style={{ marginBottom: '0.25rem' }}>
+          <IconComponent
+            size={48}
+            style={{
+              color: 'rgba(160,100,255,0.85)',
+              filter: 'drop-shadow(0 0 12px rgba(140,80,255,0.5))',
+            }}
+          />
+        </div>
+      )}
 
-      {/* Description */}
-      <p className="font-sans text-sm leading-relaxed text-muted">{description}</p>
+      {/* Título */}
+      <h3
+        style={{
+          fontFamily: 'var(--font-family-sans)',
+          fontSize: '1.25rem',
+          fontWeight: 700,
+          color: 'var(--color-text-primary)',
+          lineHeight: 1.2,
+        }}
+      >
+        {title}
+      </h3>
+
+      {/* Separador */}
+      <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
+
+      {/* Descripción */}
+      <p
+        style={{
+          fontFamily: 'var(--font-family-sans)',
+          fontSize: '0.9rem',
+          color: 'var(--color-text-muted)',
+          lineHeight: 1.7,
+        }}
+      >
+        {description}
+      </p>
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-1.5">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
         {tags.map((tag) => (
           <span
             key={tag}
-            className="font-mono text-xs text-dim px-2 py-1"
             style={{
+              fontFamily: 'var(--font-family-mono)',
+              fontSize: '0.7rem',
+              color: 'var(--color-text-muted)',
+              padding: '0.25rem 0.5rem',
               background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.06)',
             }}
@@ -50,19 +84,36 @@ function ProjectCard({ title, description, tags, status, links, builtWith }) {
 
       {/* Footer */}
       <div
-        className="flex items-center justify-between pt-3 mt-auto"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: 'auto',
+          paddingTop: '1rem',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+        }}
       >
-        <span className="font-mono text-xs text-dim">
-          built with {builtWith}
+        <span
+          style={{
+            fontFamily: 'var(--font-family-mono)',
+            fontSize: '0.7rem',
+            color: 'rgba(160,100,255,0.6)',
+          }}
+        >
+          {STATUS_LABELS[status]}
         </span>
-        <div className="flex gap-4">
+        <div style={{ display: 'flex', gap: '1rem' }}>
           {links.repo && (
             <a
               href={links.repo}
               target="_blank"
               rel="noreferrer"
-              className="font-mono text-xs text-muted hover:text-accent transition-colors duration-200"
+              style={{
+                fontFamily: 'var(--font-family-mono)',
+                fontSize: '0.7rem',
+                color: 'var(--color-text-secondary)',
+                textDecoration: 'none',
+              }}
             >
               repo →
             </a>
@@ -72,7 +123,12 @@ function ProjectCard({ title, description, tags, status, links, builtWith }) {
               href={links.live}
               target="_blank"
               rel="noreferrer"
-              className="font-mono text-xs text-accent hover:opacity-70 transition-opacity duration-200"
+              style={{
+                fontFamily: 'var(--font-family-mono)',
+                fontSize: '0.7rem',
+                color: 'rgba(160,100,255,0.85)',
+                textDecoration: 'none',
+              }}
             >
               live →
             </a>
