@@ -92,8 +92,9 @@
   }
 
   /* ScrambleText inyecta spans con .text-dim en los caracteres revelados.
-     Forzamos inherit para que el h1 del hero mantenga su color. */
-  .hero-name .text-dim {
+     Forzamos inherit para que el h1 mantenga su color. */
+  .hero-name .text-dim,
+  .intro-title .text-dim {
     color: inherit;
   }
 }
